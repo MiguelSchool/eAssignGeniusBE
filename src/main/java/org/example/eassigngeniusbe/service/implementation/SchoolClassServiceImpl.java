@@ -29,13 +29,13 @@ class SchoolClassServiceImpl implements SchoolClassService {
     @Override
     public ResponseEntity<CreateSchoolClassResponseDto> createSchoolClass(CreateSchoolClassRequestDto createSchoolClassRequestDto,
                                                                           UriComponentsBuilder uriComponentsBuilder) {
-        SchoolClassEntity schoolClassEntityToCreate = schoolClassMapper.mapCreateSchoolClassDtoToSchoolClassEntity(createSchoolClassRequestDto);
+        SchoolClassEntity schoolClassEntityToCreate = schoolClassMapper.mapRequestDtoToEntity(createSchoolClassRequestDto);
         GradeLevelEntity gradeLevelEntity = gradLevelService.findGradeLevelEntityById(createSchoolClassRequestDto.GradeLevelId());
         schoolClassEntityToCreate.setGradeLevelEntity(gradeLevelEntity);
         SchoolClassEntity createdEntity = schoolClassRepository.save(schoolClassEntityToCreate);
         UriComponents uriComponents = uriComponentsBuilder.path("/school-class/{id}")
                 .buildAndExpand(createdEntity.getId());
-        CreateSchoolClassResponseDto responseDto = schoolClassMapper.mapToCreateSchoolClassResponseDto(createdEntity);
+        CreateSchoolClassResponseDto responseDto = schoolClassMapper.mapEntityToResponseDto(createdEntity);
         return ResponseEntity.created(uriComponents.toUri()).body(responseDto);
     }
 }

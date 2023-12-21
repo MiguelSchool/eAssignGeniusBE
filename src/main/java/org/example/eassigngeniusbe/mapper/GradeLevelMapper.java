@@ -10,11 +10,11 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface GradeLevelMapper {
 
-    GradeLevelEntity mapCreateGradeLevelDtoToToEntity(CreateGradeLevelRequestDto gradeLevel);
+    GradeLevelEntity mapCreateRequestDtoToToEntity(CreateGradeLevelRequestDto gradeLevel);
 
-    CreateGradeLevelResponseDto mapToCreateGradeLevelResponseDto(GradeLevelEntity gradeLevelEntity);
+    CreateGradeLevelResponseDto mapEntityToCreateResponseDto(GradeLevelEntity gradeLevelEntity);
 
-    UpdateGradeLevelResponseDto mapUpdateGradeLevelEntityToResponseDto(GradeLevelEntity gradeLevelEntity);
+    UpdateGradeLevelResponseDto mapEntityToUpdateResponseDto(GradeLevelEntity gradeLevelEntity);
 
-    GetGradeLevelDto mapGetGradeLevelToDto(GradeLevelEntity gradeLevelEntity);
+    GetGradeLevelDto mapEntityToGetDto(GradeLevelEntity gradeLevelEntity);
 }
