@@ -18,7 +18,7 @@ import java.util.Set;
 public class SchoolClassEntity extends AbstractEntity {
 
     @Column(nullable = false)
-    private String className;
+    private String classname;
 
     @Column(nullable = false)
     private String classRoom;
@@ -27,8 +27,7 @@ public class SchoolClassEntity extends AbstractEntity {
     @JoinColumn(nullable = false)
     private GradeLevelEntity gradeLevelEntity;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(nullable = false)
+    @ManyToOne
     private TeacherEntity classTeacher;
 
     @ToString.Exclude
@@ -40,7 +39,7 @@ public class SchoolClassEntity extends AbstractEntity {
         if (this == o) return true;
         if (!(o instanceof SchoolClassEntity that)) return false;
         if (!super.equals(o)) return false;
-        return Objects.equals(className, that.className) && Objects.equals(classRoom, that.classRoom)
+        return Objects.equals(classname, that.classname) && Objects.equals(classRoom, that.classRoom)
                 && Objects.equals(gradeLevelEntity, that.gradeLevelEntity)
                 && Objects.equals(classTeacher, that.classTeacher)
                 && Objects.equals(schoolSubjectSchoolClassEntities, that.schoolSubjectSchoolClassEntities);
@@ -48,6 +47,6 @@ public class SchoolClassEntity extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), className, classRoom, gradeLevelEntity, classTeacher, schoolSubjectSchoolClassEntities);
+        return Objects.hash(super.hashCode(), classname, classRoom, gradeLevelEntity, classTeacher, schoolSubjectSchoolClassEntities);
     }
 }

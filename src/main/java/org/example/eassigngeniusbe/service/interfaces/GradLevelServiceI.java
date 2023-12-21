@@ -15,6 +15,8 @@ public interface GradLevelServiceI {
 
     GetGradeLevelDto findGradeLevelById(Long gradleLevelId);
 
+    GradeLevelEntity findGradeLevelEntityById(Long gradleLevelId);
+
     Collection<GetGradeLevelDto> getAllGradeLevels();
 
     GradeLevelEntity deleteGradleLevel(Long gradleLevelId);

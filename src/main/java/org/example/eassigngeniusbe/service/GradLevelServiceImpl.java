@@ -40,7 +40,7 @@ class GradLevelServiceImpl implements GradLevelServiceI {
     @Override
     public UpdateGradeLevelResponseDto updateGradeLevel(UpdateGradeLevelRequestDto updateGradeLevelRequestDto) {
         GradeLevelEntity gradeLevelEntityToUpdate = gradeLevelRepository.findById(updateGradeLevelRequestDto.id())
-                .orElseThrow(()-> createGradeLevelNotFoundException(updateGradeLevelRequestDto.id()));
+                .orElseThrow(() -> createGradeLevelNotFoundException(updateGradeLevelRequestDto.id()));
         gradeLevelEntityToUpdate.setName(updateGradeLevelRequestDto.name());
         gradeLevelEntityToUpdate.setBeginGradle(updateGradeLevelRequestDto.beginGradle());
         gradeLevelEntityToUpdate.setEndGradle(updateGradeLevelRequestDto.endGradle());
@@ -53,10 +53,15 @@ class GradLevelServiceImpl implements GradLevelServiceI {
 
     @Override
     public GetGradeLevelDto findGradeLevelById(Long gradleLevelId) {
-        GradeLevelEntity gradeLevelEntity = gradeLevelRepository.findById(gradleLevelId).orElseThrow(()->
+        GradeLevelEntity gradeLevelEntity = gradeLevelRepository.findById(gradleLevelId).orElseThrow(() ->
                 createGradeLevelNotFoundException(gradleLevelId)
         );
         return gradeLevelMapper.gradeLevelEntityToGetGradeLevelDto(gradeLevelEntity);
+    }
+
+    @Override
+    public GradeLevelEntity findGradeLevelEntityById(Long gradleLevelId) {
+        return gradeLevelRepository.findById(gradleLevelId).orElseThrow(()-> createGradeLevelNotFoundException(gradleLevelId));
     }
 
     @Override
