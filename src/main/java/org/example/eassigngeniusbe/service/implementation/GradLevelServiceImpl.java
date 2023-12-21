@@ -1,4 +1,4 @@
-package org.example.eassigngeniusbe.service;
+package org.example.eassigngeniusbe.service.implementation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import org.example.eassigngeniusbe.mapper.GradeLevelMapper;
 import org.example.eassigngeniusbe.model.dto.gradlelevel.*;
 import org.example.eassigngeniusbe.model.entity.GradeLevelEntity;
 import org.example.eassigngeniusbe.repository.GradeLevelRepository;
-import org.example.eassigngeniusbe.service.interfaces.GradLevelServiceI;
+import org.example.eassigngeniusbe.service.GradLevelService;
 import org.example.eassigngeniusbe.share.customException.GradleLevelNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-class GradLevelServiceImpl implements GradLevelServiceI {
+class GradLevelServiceImpl implements GradLevelService {
 
     private final GradeLevelRepository gradeLevelRepository;
     private final GradeLevelMapper gradeLevelMapper;
@@ -28,11 +28,11 @@ class GradLevelServiceImpl implements GradLevelServiceI {
     @Override
     public ResponseEntity<CreateGradeLevelResponseDto> createGradeLevel(CreateGradeLevelRequestDto createGradeLevelRequestDto,
                                                                         UriComponentsBuilder uriComponentsBuilder) {
-        GradeLevelEntity gradeLevelEntityToCreate = gradeLevelMapper.createGradeLevelDtoToToEntity(createGradeLevelRequestDto);
+        GradeLevelEntity gradeLevelEntityToCreate = gradeLevelMapper.mapCreateGradeLevelDtoToToEntity(createGradeLevelRequestDto);
         GradeLevelEntity createdEntity = gradeLevelRepository.save(gradeLevelEntityToCreate);
         UriComponents uriComponents = uriComponentsBuilder.path("/gradeLevel/{id}")
                 .buildAndExpand(createdEntity.getId());
-        CreateGradeLevelResponseDto createdDto = gradeLevelMapper.gradeLevelEntityToCreateGradeLevelResponseDto(createdEntity);
+        CreateGradeLevelResponseDto createdDto = gradeLevelMapper.mapToCreateGradeLevelResponseDto(createdEntity);
         log.debug("gradle level with id {} has been created", createdEntity.getId());
         return ResponseEntity.created(uriComponents.toUri()).body(createdDto);
     }
@@ -46,7 +46,7 @@ class GradLevelServiceImpl implements GradLevelServiceI {
         gradeLevelEntityToUpdate.setEndGradle(updateGradeLevelRequestDto.endGradle());
         gradeLevelEntityToUpdate.setUpdatedAt(LocalDateTime.now());
         GradeLevelEntity updatedEntity = gradeLevelRepository.save(gradeLevelEntityToUpdate);
-        UpdateGradeLevelResponseDto updatedDto = gradeLevelMapper.gradeLevelEntityToUpdateGradeLevelResponseDto(updatedEntity);
+        UpdateGradeLevelResponseDto updatedDto = gradeLevelMapper.mapUpdateGradeLevelEntityToResponseDto(updatedEntity);
         log.debug("gradle level with id {} has been updated", updatedEntity.getId());
         return updatedDto;
     }
@@ -56,7 +56,7 @@ class GradLevelServiceImpl implements GradLevelServiceI {
         GradeLevelEntity gradeLevelEntity = gradeLevelRepository.findById(gradleLevelId).orElseThrow(() ->
                 createGradeLevelNotFoundException(gradleLevelId)
         );
-        return gradeLevelMapper.gradeLevelEntityToGetGradeLevelDto(gradeLevelEntity);
+        return gradeLevelMapper.mapGetGradeLevelToDto(gradeLevelEntity);
     }
 
     @Override
@@ -67,7 +67,7 @@ class GradLevelServiceImpl implements GradLevelServiceI {
     @Override
     public Collection<GetGradeLevelDto> getAllGradeLevels() {
         return gradeLevelRepository.findAll().stream()
-                .map(gradeLevelMapper::gradeLevelEntityToGetGradeLevelDto)
+                .map(gradeLevelMapper::mapGetGradeLevelToDto)
                 .collect(Collectors.toSet());
     }
 

@@ -3,7 +3,7 @@ package org.example.eassigngeniusbe.controller;
 
 import org.example.eassigngeniusbe.model.dto.gradlelevel.*;
 import org.example.eassigngeniusbe.model.entity.GradeLevelEntity;
-import org.example.eassigngeniusbe.service.interfaces.GradLevelServiceI;
+import org.example.eassigngeniusbe.service.GradLevelService;
 import org.example.eassigngeniusbe.share.customException.GradleLevelNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class GradeLevelControllerTest {
     private GradeLevelController sut;
 
     @Mock
-    private GradLevelServiceI gradLevelServiceI;
+    private GradLevelService gradLevelService;
 
     @BeforeEach
     void setup() {
@@ -44,7 +44,7 @@ class GradeLevelControllerTest {
         CreateGradeLevelRequestDto requestDto = new CreateGradeLevelRequestDto("mock", LocalDate.now(), LocalDate.now());
         ResponseEntity<CreateGradeLevelResponseDto> expectedResponse = new ResponseEntity<>(HttpStatus.CREATED);
 
-        when(gradLevelServiceI.createGradeLevel(eq(requestDto), any())).thenReturn(expectedResponse);
+        when(gradLevelService.createGradeLevel(eq(requestDto), any())).thenReturn(expectedResponse);
         ResponseEntity<CreateGradeLevelResponseDto> actualResponse = sut.createGradeLevel(requestDto, null);
         assertEquals(expectedResponse.getStatusCode(), actualResponse.getStatusCode());
     }
@@ -64,7 +64,7 @@ class GradeLevelControllerTest {
         Long gradleLevelId = 1L;
         GetGradeLevelDto expectedResponse = new GetGradeLevelDto(1L, "mock", LocalDate.now(), LocalDate.now(), LocalDateTime.now(), LocalDateTime.now());
         GetGradeLevelDto expectedDto = new GetGradeLevelDto(1L, "mock", LocalDate.now(), LocalDate.now(), LocalDateTime.now(), LocalDateTime.now());
-        when(gradLevelServiceI.findGradeLevelById(gradleLevelId)).thenReturn(expectedDto);
+        when(gradLevelService.findGradeLevelById(gradleLevelId)).thenReturn(expectedDto);
         ResponseEntity<GetGradeLevelDto> actualResponse = sut.getSingleGradeLevel(gradleLevelId);
 
         assertEquals(expectedResponse, actualResponse.getBody());
@@ -83,7 +83,7 @@ class GradeLevelControllerTest {
     void testDeleteGradleLevel() {
         Long gradleLevelId = 1L;
         GradeLevelEntity expectedResponse = new GradeLevelEntity();
-        Mockito.when(gradLevelServiceI.deleteGradleLevel(gradleLevelId))
+        Mockito.when(gradLevelService.deleteGradleLevel(gradleLevelId))
                 .thenReturn(expectedResponse);
         ResponseEntity<GradeLevelEntity> actualResponse = sut.deleteGradleLevel(gradleLevelId);
 
@@ -103,7 +103,7 @@ class GradeLevelControllerTest {
     @Test
     void testDeleteGradeLevel_ServiceThrowsException() {
         final Long gradeLevelId = 1L;
-        doThrow(GradleLevelNotFoundException.class).when(gradLevelServiceI).deleteGradleLevel(gradeLevelId);
+        doThrow(GradleLevelNotFoundException.class).when(gradLevelService).deleteGradleLevel(gradeLevelId);
         assertThrows(GradleLevelNotFoundException.class, () -> sut.deleteGradleLevel(gradeLevelId));
     }
 }

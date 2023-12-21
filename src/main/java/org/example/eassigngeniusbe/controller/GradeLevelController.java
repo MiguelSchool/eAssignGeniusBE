@@ -3,7 +3,7 @@ package org.example.eassigngeniusbe.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.eassigngeniusbe.model.dto.gradlelevel.*;
 import org.example.eassigngeniusbe.model.entity.GradeLevelEntity;
-import org.example.eassigngeniusbe.service.interfaces.GradLevelServiceI;
+import org.example.eassigngeniusbe.service.GradLevelService;
 import org.example.eassigngeniusbe.share.customException.GradleLevelNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class GradeLevelController {
 
-    private final GradLevelServiceI gradleLevelService;
+    private final GradLevelService gradleLevelService;
 
     /**
      * Creates a new grade level.

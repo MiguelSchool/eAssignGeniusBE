@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface SchoolClassMapper {
 
-    SchoolClassEntity createSchoolClassRequestDtoToEntity(CreateSchoolClassRequestDto createSchoolClassRequestDto);
-    CreateSchoolClassResponseDto schoolClassEntityToResponseDto(SchoolClassEntity schoolClassEntity);
+    SchoolClassEntity mapCreateSchoolClassDtoToSchoolClassEntity(CreateSchoolClassRequestDto createSchoolClassRequestDto);
+    CreateSchoolClassResponseDto mapToCreateSchoolClassResponseDto(SchoolClassEntity schoolClassEntity);
 }

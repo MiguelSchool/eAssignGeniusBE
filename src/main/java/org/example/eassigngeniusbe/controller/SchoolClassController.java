@@ -3,7 +3,7 @@ package org.example.eassigngeniusbe.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.eassigngeniusbe.model.dto.SchoolClass.CreateSchoolClassRequestDto;
 import org.example.eassigngeniusbe.model.dto.SchoolClass.CreateSchoolClassResponseDto;
-import org.example.eassigngeniusbe.service.interfaces.SchoolClassServiceI;
+import org.example.eassigngeniusbe.service.SchoolClassService;
 import org.example.eassigngeniusbe.share.customException.GradleLevelNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class SchoolClassController {
 
-    private final SchoolClassServiceI schoolClassService;
+    private final SchoolClassService schoolClassService;
     @PostMapping
     public ResponseEntity<CreateSchoolClassResponseDto> createSchoolClass(@RequestBody CreateSchoolClassRequestDto createSchoolClassRequestDto,
                                                                           UriComponentsBuilder uriComponentsBuilder) {

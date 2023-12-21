@@ -30,7 +30,7 @@ public class GradeLevelEntity extends AbstractEntity {
     private LocalDate endGradle;
 
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gradeLevelEntity")
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "gradeLevelEntity")
     private Set<SchoolClassEntity> schoolClassEntities = new HashSet<>();
 
     @Override

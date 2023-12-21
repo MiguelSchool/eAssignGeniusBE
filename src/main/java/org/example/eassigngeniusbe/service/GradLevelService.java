@@ -1,4 +1,4 @@
-package org.example.eassigngeniusbe.service.interfaces;
+package org.example.eassigngeniusbe.service;
 
 import org.example.eassigngeniusbe.model.dto.gradlelevel.*;
 import org.example.eassigngeniusbe.model.entity.GradeLevelEntity;
@@ -7,7 +7,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collection;
 
-public interface GradLevelServiceI {
+public interface GradLevelService {
 
     ResponseEntity<CreateGradeLevelResponseDto> createGradeLevel(CreateGradeLevelRequestDto createGradeLevelRequestDto, UriComponentsBuilder uriComponentsBuilder);
 
