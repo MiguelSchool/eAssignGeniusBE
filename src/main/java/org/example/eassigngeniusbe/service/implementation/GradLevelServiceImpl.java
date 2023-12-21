@@ -28,7 +28,7 @@ class GradLevelServiceImpl implements GradLevelService {
     @Override
     public ResponseEntity<CreateGradeLevelResponseDto> createGradeLevel(CreateGradeLevelRequestDto createGradeLevelRequestDto,
                                                                         UriComponentsBuilder uriComponentsBuilder) {
-        GradeLevelEntity gradeLevelEntityToCreate = gradeLevelMapper.mapCreateRequestDtoToToEntity(createGradeLevelRequestDto);
+        GradeLevelEntity gradeLevelEntityToCreate = gradeLevelMapper.mapCreateRequestDtoToEntity(createGradeLevelRequestDto);
         GradeLevelEntity createdEntity = gradeLevelRepository.save(gradeLevelEntityToCreate);
         UriComponents uriComponents = uriComponentsBuilder.path("/gradeLevel/{id}")
                 .buildAndExpand(createdEntity.getId());
