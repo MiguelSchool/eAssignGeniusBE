@@ -20,4 +20,6 @@ public interface GradLevelService {
     Collection<GetGradeLevelDto> getAllGradeLevels();
 
     GradeLevelEntity deleteGradleLevel(Long gradleLevelId);
+
+    GradeLevelEntity mapDtoToEntity(GetGradeLevelDto gradeLevelDto);
 }

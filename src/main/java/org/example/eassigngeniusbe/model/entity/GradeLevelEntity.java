@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.example.eassigngeniusbe.model.entity.abstracts.AbstractEntity;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -30,6 +32,7 @@ public class GradeLevelEntity extends AbstractEntity {
     private LocalDate endGradle;
 
     @ToString.Exclude
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "gradeLevelEntity")
     private Set<SchoolClassEntity> schoolClassEntities = new HashSet<>();
 
